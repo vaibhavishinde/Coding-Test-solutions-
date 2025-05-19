@@ -1,53 +1,51 @@
 import java.util.Scanner;
 
-public class Program1 {
-    double a, b;
-    String operation;
+public class SimpleCalc {
+    double num1, num2;
+    String op;
 
-    public Program1(double a, double b, String operation) {
-        this.a = a;
-        this.b = b;
-        this.operation = operation.toLowerCase();
+    public SimpleCalc(double num1, double num2, String op) {
+        this.num1 = num1;
+        this.num2 = num2;
+        this.op = op;
     }
 
     public double calculate() {
-        switch (operation) {
-            case "+":
-                return a + b;
-            case "-":
-                return a - b;
-            case "*":
-                return a * b;
-            case "/":
-                if (b != 0) return a / b;
-                else {
-                    System.out.println("Cannot divide by zero.");
-                    return Double.NaN;
-                }
-            default:
-                System.out.println("Invalid operation. Use add, subtract, multiply, or divide.");
-                return Double.NaN;
+        if (op.equals("+")) {
+            return num1 + num2;
+        } else if (op.equals("-")) {
+            return num1 - num2;
+        } else if (op.equals("*")) {
+            return num1 * num2;
+        } else if (op.equals("/")) {
+            if (num2 == 0) {
+                System.out.println("Can't divide by zero!");
+                return 0;
+            }
+            return num1 / num2;
+        } else {
+            System.out.println("Unknown operation.");
+            return 0;
         }
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter first number (a): ");
-        double a = scanner.nextDouble();
+        System.out.print("First number: ");
+        double a = sc.nextDouble();
 
-        System.out.print("Enter second number (b): ");
-        double b = scanner.nextDouble();
+        System.out.print("Second number: ");
+        double b = sc.nextDouble();
 
-        scanner.nextLine();
-        System.out.print("Enter operation (+, -, *, /): ");
-        String operation = scanner.nextLine();
+        sc.nextLine();  
 
-        Program1 calc = new Program1(a, b, operation);
-        double result = calc.calculate();
+        System.out.print("Operation (+, -, *, /): ");
+        String op = sc.nextLine();
 
-        System.out.println("Result: " + result);
+        SimpleCalc calc = new SimpleCalc(a, b, op);
+        System.out.println("Result: " + calc.calculate());
 
-        scanner.close();
+        sc.close();
     }
 }
